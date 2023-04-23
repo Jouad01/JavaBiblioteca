@@ -60,10 +60,10 @@ public class Persona {
     }
 
     public void setPassword(String password) {
-        if (password.length() >= 8) {
-            this.password = password;
-        } else {
+        if (password.length() < 8) {
             System.out.println("La contraseña debe tener al menos 8 caracteres");
+        } else {
+            this.password = password;
         }
     }
 
@@ -87,23 +87,23 @@ public class Persona {
 
         Persona persona = new Persona();
 
-        System.out.println("Nombre: ");
+        System.out.print("Nombre: ");
         String nombre = input.nextLine();
-        persona.setNombre(input.nextLine());
+        persona.setNombre(nombre);
 
-        System.out.println("Apellidos: ");
+        System.out.print("Apellidos: ");
         String apellidos = input.nextLine();
-        persona.setApellidos(input.nextLine());
+        persona.setApellidos(apellidos);
 
-        System.out.println("NIF: ");
+        System.out.print("NIF: ");
         String NIF = input.nextLine();
-        persona.setNIF(input.nextLine());
+        persona.setNIF(NIF);
 
         String password = " ";
         while (password.length() < 8) {
-            System.out.println("Contraseña: ");
+            System.out.print("Contraseña: ");
             password = input.nextLine();
-            persona.setPassword(input.nextLine());
+            persona.setPassword(password);
         }
         persona = new Persona(nombre, apellidos, NIF, password);
         listaBibliotecarios.add(persona);

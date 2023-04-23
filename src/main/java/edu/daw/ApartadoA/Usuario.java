@@ -58,10 +58,12 @@ public class Usuario {
 
 //    hazme el nif con un formato adecuado
     public void setNIF(String NIF) {
-        if(!NIF.matches("[0-9]{8}[A-Z]"))
-            throw new IllegalArgumentException("El NIF debe tener 8 numeros y una letra mayuscula");
+        if(!NIF.matches("[0-9]{8}[A-Z]")) {
+            System.out.println("El NIF no tiene un formato válido. Vuelve a introducirlo");
+        }
         this.NIF = NIF;
     }
+
 
     public String getPassword() {
         return password;
@@ -90,17 +92,17 @@ public class Usuario {
     }
 
 //    toString
-        @Override
-        public String toString() {
-            return "Usuario{" +
-                    "nombre='" + nombre + '\'' +
-                    ", apellidos='" + apellidos + '\'' +
-                    ", NIF='" + NIF + '\'' +
-                    ", password='" + password + '\'' +
-                    ", listaReservas=" + listaReservas +
-                    ", listaUsuarios=" + listaUsuarios +
-                    '}';
-        }
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", NIF='" + NIF + '\'' +
+                ", password='" + password + '\'' +
+                ", listaReservas=" + listaReservas +
+                '}';
+    }
+
 //    metodos agregar, ver y eliminar usuarios
     public void agregarUsuario(ArrayList<Usuario> listaUsuarios) {
         System.out.println("---Añadir usuario---");
@@ -116,9 +118,12 @@ public class Usuario {
         String apellidos = input.nextLine();
         usuario.setApellidos(apellidos);
 
-        System.out.println("Introduce el NIF del usuario");
-        String NIF = input.nextLine();
-        usuario.setNIF(NIF);
+        String NIF = " ";
+        while (NIF.length() < 9) {
+            System.out.println("Introduce el NIF del usuario");
+            NIF = input.nextLine();
+            usuario.setNIF(NIF);
+        }
 
         String password = " ";
         while (password.length() < 8) {
@@ -128,6 +133,7 @@ public class Usuario {
         }
 
         usuario = new Usuario(nombre, apellidos, NIF, password, new ArrayList<>());
+        listaUsuarios.add(usuario);
     }
 
     public void eliminarUsuario(ArrayList<Usuario> listaUsuarios) {
@@ -146,22 +152,28 @@ public class Usuario {
 
     public void verUsuarios(ArrayList<Usuario> listaUsuarios) {
         System.out.println("---Ver usuarios---");
-        for (Usuario usuario : listaUsuarios) {
-            System.out.println(usuario.toString());
+        if(listaUsuarios.isEmpty()){
+            System.out.println("No hay usuarios registrados");
+        } else {
+            for (Usuario usuario : listaUsuarios) {
+                System.out.println(usuario.toString());
+            }
         }
     }
 
-//    metodos para comprobar requisitos de reserva (booleanos)
 
+//    metodos para comprobar requisitos de reserva (booleanos)
     public static boolean comprobarNumReservas(ArrayList<Usuario> listaUsuarios, ArrayList<Libro> listaLibros, String NIF) {
         for (Usuario listaUsuario : listaUsuarios) {
             if (listaUsuario.getNIF().equals(NIF)) {
-                if (listaUsuario.getListaReservas().size() >= 5) {
+                if (listaUsuario.getListaReservas().size() < 5) {
                     return true;
+                } else {
+                    System.out.println("El usuario ya tiene 5 reservas");
+                    return false;
                 }
             }
         }
-        System.out.println("No puedes reservar mas de 5 libros");
         return false;
     }
 
