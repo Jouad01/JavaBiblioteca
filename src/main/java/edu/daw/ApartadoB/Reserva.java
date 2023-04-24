@@ -1,5 +1,7 @@
 package edu.daw.ApartadoB;
-import edu.daw.ApartadoA.Libro;
+
+import java.util.Scanner;
+
 public class Reserva {
     private Libro libro;
     private String fechaReserva;
@@ -60,4 +62,19 @@ public class Reserva {
                 '}';
     }
 
+//    metodo que solicita los datos de la reserva
+    public void solicitarDatosReserva() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Ingrese el título del libro: ");
+        String titulo = input.nextLine();
+        System.out.println("Ingrese el autor del libro: ");
+        String autor = input.nextLine();
+        System.out.println("Ingrese la fecha de reserva (dd/mm/aaaa): ");
+        String fechaReserva = input.nextLine();
+        System.out.println("Ingrese la hora de reserva (hh:mm:ss): ");
+        String horaReserva = input.nextLine();
+        this.libro = new Libro(titulo, autor);
+        this.fechaReserva = fechaReserva;
+        this.horaReserva = horaReserva;
+    }
 }
