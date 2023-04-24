@@ -1,16 +1,18 @@
 package edu.daw.ApartadoB;
 
+import java.util.ArrayList;
+
 public abstract class Persona {
     private String nombre;
     private String apellido1;
     private String apellido2;
     private int edad;
 
-//    constructor vacio
+    //    constructor vacio
     public Persona() {
     }
 
-//    constructor con parametros
+    //    constructor con parametros
     public Persona(String nombre, String apellido1, String apellido2, int edad) {
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -18,7 +20,7 @@ public abstract class Persona {
         this.edad = edad;
     }
 
-//    constructor copia
+    //    constructor copia
     public Persona(Persona persona) {
         this.nombre = persona.nombre;
         this.apellido1 = persona.apellido1;
@@ -71,4 +73,11 @@ public abstract class Persona {
                 ", edad=" + edad +
                 '}';
     }
+
+//    atributo que solicita datos
+
+    public void solicitarDatosPersona(ArrayList <Persona> listaPersonas, ArrayList <Bibliotecario> listaBibliotecarios, ArrayList <Usuario> listaUsuarios) {
+
+    }
+
 }
