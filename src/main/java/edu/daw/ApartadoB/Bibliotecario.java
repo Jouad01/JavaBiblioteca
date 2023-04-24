@@ -41,6 +41,9 @@ public class Bibliotecario extends Persona {
     }
 
     public String getNIF() {
+        if (NIF.length() < 9) {
+            System.out.println("El NIF debe tener 9 caracteres");
+        }
         return NIF;
     }
 
@@ -53,7 +56,11 @@ public class Bibliotecario extends Persona {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (password.length() < 8) {
+            System.out.println("La contraseña debe tener al menos 8 caracteres");
+        } else {
+            this.password = password;
+        }
     }
 
 //    toString
@@ -65,7 +72,6 @@ public class Bibliotecario extends Persona {
                 ", apellido1='" + getApellido1() + '\'' +
                 "puestoTrabajo='" + puestoTrabajo + '\'' +
                 ", NIF='" + NIF + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -99,29 +105,48 @@ public class Bibliotecario extends Persona {
         String puestoTrabajo = pusT.nextLine();
         bibliotecario.setPuestoTrabajo(puestoTrabajo);
 
+        System.out.println("Introduzca su NIF: ");
+        Scanner NIF = new Scanner(System.in);
+        String NIF1 = NIF.nextLine();
+        bibliotecario.setNIF(NIF1);
 
-        String NIF = " ";
-        while (NIF.length() < 9) {
-            System.out.println("Introduce el NIF del usuario");
-            Scanner NIF1 = new Scanner(System.in);
-            NIF = NIF1.nextLine();
-            if (NIF.length() < 9) {
-                System.out.println("El NIF debe tener 9 caracteres");
-            }
-        }
+        System.out.println("Introduzca su contraseña: ");
+        Scanner password = new Scanner(System.in);
+        String password1 = password.nextLine();
+        bibliotecario.setPassword(password1);
 
-        String password = " ";
-        while (password.length() < 8) {
-            System.out.println("Introduce la contraseña del usuario");
-            Scanner password1 = new Scanner(System.in);
-            password = password1.nextLine();
-            if (password.length() < 8) {
-                System.out.println("La contraseña debe tener 8 caracteres");
+        for (Bibliotecario bibliotecario1 : listaBibliotecarios) {
+            if (bibliotecario1.getNIF().equals(NIF1)) {
+                System.out.println("El NIF introducido ya existe");
+                return;
             }
         }
 
         listaBibliotecarios.add(bibliotecario);
         listaPersonas.add(bibliotecario);
         System.out.println("El usuario " + bibliotecario.getNombre() + " se ha registrado correctamente.");
+    }
+
+//    metodo para hacer bibliotecario haga login
+    public static void loginBibliotecario(ArrayList<Bibliotecario> listaBibliotecarios) {
+        System.out.println("----INICIO DE SESION----\n");
+        System.out.println("Introduzca su NIF: ");
+        Scanner NIF = new Scanner(System.in);
+        String NIF1 = NIF.nextLine();
+        System.out.println("Introduzca su contraseña: ");
+        Scanner password = new Scanner(System.in);
+        String password1 = password.nextLine();
+        int isTrue = 1;
+        for (Bibliotecario bibliotecario : listaBibliotecarios) {
+            if (bibliotecario.getNIF() != null && bibliotecario.getPassword() != null
+                    && bibliotecario.getNIF().equals(NIF1) && bibliotecario.getPassword().equals(password1)) {
+                System.out.println("\n" + "Acceso concedido. Bienvenido " + bibliotecario.getNombre() + "!\n");
+                isTrue = 0;
+                break;
+            }
+        }
+        if (isTrue == 1) {
+            System.out.println("No es correcto");
+        }
     }
 }
