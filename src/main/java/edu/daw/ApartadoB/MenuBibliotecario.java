@@ -18,7 +18,8 @@ public class MenuBibliotecario {
             System.out.println("1. Dar de alta bibliotecario");
             System.out.println("2. Dar de alta usuario");
             System.out.println("3. Mostrar lista de personas");
-            System.out.println("4. Salir");
+            System.out.println("4. Iniciar sesion como bibliotecario");
+            System.out.println("5. Salir\n");
             System.out.println("Introduce una opcion: ");
             int opcion = input.nextInt();
             switch (opcion) {
@@ -41,6 +42,9 @@ public class MenuBibliotecario {
                     }
                     break;
                 case 4:
+                    Bibliotecario.loginBibliotecario(listaBibliotecarios);
+                    break;
+                case 5:
                     isRunning = false;
                     break;
                 default:
