@@ -1,11 +1,16 @@
 package edu.daw.ApartadoB;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Reserva {
+public class Reserva implements Material{
     private Libro libro;
     private String fechaReserva;
     private String horaReserva;
+
+    ArrayList <Reserva> listaReservas = new ArrayList <>();
+    ArrayList<Libro> listaLibros = new ArrayList <>();
 
 //    constructor vacio
     public Reserva() {
@@ -63,18 +68,29 @@ public class Reserva {
     }
 
 //    metodo que solicita los datos de la reserva
-    public void solicitarDatosReserva() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Ingrese el título del libro: ");
-        String titulo = input.nextLine();
-        System.out.println("Ingrese el autor del libro: ");
-        String autor = input.nextLine();
-        System.out.println("Ingrese la fecha de reserva (dd/mm/aaaa): ");
-        String fechaReserva = input.nextLine();
-        System.out.println("Ingrese la hora de reserva (hh:mm:ss): ");
-        String horaReserva = input.nextLine();
-        this.libro = new Libro(titulo, autor);
-        this.fechaReserva = fechaReserva;
-        this.horaReserva = horaReserva;
+    public void agregarReserva(String ISBN, Usuario usuario) {
+        Biblioteca biblioteca = new Biblioteca();
+        for (Libro libro : biblioteca.getListaLibros()) {
+            if (libro.getISBN().equals(ISBN)) {
+                Reserva reserva = new Reserva(libro, LocalDate.now().toString() , LocalDate.now().toString());
+                libro.setNumCopiasDispobibles(libro.getNumCopiasDispobibles() - 1);
+                usuario.agregarReserva(reserva);
+                System.out.println("Reserva realizada con exito");
+                System.out.println("El libro es: ");
+                System.out.println(reserva.mostrarInfoChula());
+            }
+        }
+    }
+
+//    metodos de la interfaz Material
+    @Override
+    public LocalDate obtenerFechaDevolucion() {
+        LocalDate fechaDevolucion = LocalDate.parse(this.fechaReserva).plusDays(7);
+        return fechaDevolucion;
+    }
+
+    @Override
+    public String mostrarInfoChula() {
+        return "Libro: " + libro + "\n fecha de reserva: + " + fechaReserva + "\n hora de reserva: " + horaReserva;
     }
 }
