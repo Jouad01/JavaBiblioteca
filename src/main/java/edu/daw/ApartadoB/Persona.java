@@ -74,10 +74,13 @@ public abstract class Persona {
                 '}';
     }
 
-//    atributo que solicita datos
+//    metodo que solicita datos declarado
 
     public void solicitarDatosPersona(ArrayList <Persona> listaPersonas, ArrayList <Bibliotecario> listaBibliotecarios, ArrayList <Usuario> listaUsuarios) {
 
     }
+
+//    declara metodo abstracto para las clases hijas
+    public abstract void cambiarPassword();
 
 }
