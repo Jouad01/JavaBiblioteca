@@ -8,6 +8,8 @@ public class MenuBibliotecario {
         ArrayList <Persona> listaPersonas = new ArrayList<>();
         ArrayList <Bibliotecario> listaBibliotecarios = new ArrayList<>();
         ArrayList <Usuario> listaUsuarios = new ArrayList<>();
+        ArrayList <Libro> listaLibros = new ArrayList<>();
+        ArrayList <Reserva> listaReservas = new ArrayList<>();
 //        menu que se encarga de dar de alta más bibliotecarios y usuarios
 
         Scanner input = new Scanner(System.in);
@@ -15,11 +17,13 @@ public class MenuBibliotecario {
 
         boolean isRunning = true;
         while (isRunning) {
-            System.out.println("1. Dar de alta bibliotecario");
-            System.out.println("2. Dar de alta usuario");
-            System.out.println("3. Mostrar lista de personas");
-            System.out.println("4. Iniciar sesion como bibliotecario");
-            System.out.println("5. Salir\n");
+            System.out.println("1. Añade a un bibliotecario");
+            System.out.println("2. Añade a un usuario");
+            System.out.println("3. Mostrar lista de personas (todos)");
+            System.out.println("4. Añadir un libro");
+            System.out.println("5. Mostrar lista de libros");
+            System.out.println("6. Iniciar sesion como bibliotecario");
+            System.out.println("7. Salir\n");
             System.out.println("Introduce una opcion: ");
             int opcion = input.nextInt();
             switch (opcion) {
@@ -42,9 +46,16 @@ public class MenuBibliotecario {
                     }
                     break;
                 case 4:
-                    Bibliotecario.loginBibliotecario(listaBibliotecarios);
+                    Libro libro = new Libro();
+                    Libro.agregarLibro(listaLibros);
                     break;
                 case 5:
+                    Libro.verLibros(listaLibros);
+                    break;
+                case 6:
+                    Bibliotecario.loginBibliotecario(listaBibliotecarios, listaUsuarios, listaLibros, listaReservas);
+                    break;
+                case 7:
                     isRunning = false;
                     break;
                 default:
@@ -53,4 +64,6 @@ public class MenuBibliotecario {
             }
         }
     }
+
 }
+
