@@ -2,20 +2,21 @@ package edu.daw.ApartadoB;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import edu.daw.ApartadoB.Libro;
 
 public class Bibliotecario extends Persona {
 
     private String puestoTrabajo;
     private String NIF;
     private String password;
-//    duda
-    private ArrayList<Persona> listaPersonas = new ArrayList<>();
+    //    duda
+    private ArrayList <Persona> listaPersonas = new ArrayList <>();
 
-//    constructor vacio
+    //    constructor vacio
     public Bibliotecario() {
     }
 
-//    constructor con parametros incluido superclase
+    //    constructor con parametros incluido superclase
     public Bibliotecario(String nombre, String apellido1, String apellido2, int edad, String puestoTrabajo, String NIF, String password) {
         super(nombre, apellido1, apellido2, edad);
         this.puestoTrabajo = puestoTrabajo;
@@ -23,7 +24,7 @@ public class Bibliotecario extends Persona {
         this.password = password;
     }
 
-//    constructor copia
+    //    constructor copia
     public Bibliotecario(Bibliotecario bibliotecario) {
         super(bibliotecario);
         this.puestoTrabajo = bibliotecario.puestoTrabajo;
@@ -31,7 +32,7 @@ public class Bibliotecario extends Persona {
         this.password = bibliotecario.password;
     }
 
-//    getters y setters
+    //    getters y setters
     public String getPuestoTrabajo() {
         return puestoTrabajo;
     }
@@ -127,26 +128,194 @@ public class Bibliotecario extends Persona {
         System.out.println("El usuario " + bibliotecario.getNombre() + " se ha registrado correctamente.");
     }
 
-//    metodo para hacer bibliotecario haga login
-    public static void loginBibliotecario(ArrayList<Bibliotecario> listaBibliotecarios) {
+    //    metodo para hacer bibliotecario haga login
+    public static void loginBibliotecario(ArrayList <Bibliotecario> listaBibliotecarios, ArrayList <Usuario> listaUsuarios, ArrayList <Libro> listaLibros, ArrayList <Reserva> listaReservas) {
         System.out.println("----INICIO DE SESION----\n");
-        System.out.println("Introduzca su NIF: ");
-        Scanner NIF = new Scanner(System.in);
-        String NIF1 = NIF.nextLine();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Introduzca su usuario: ");
+        String usuario = input.nextLine();
         System.out.println("Introduzca su contraseña: ");
-        Scanner password = new Scanner(System.in);
-        String password1 = password.nextLine();
-        int isTrue = 1;
-        for (Bibliotecario bibliotecario : listaBibliotecarios) {
-            if (bibliotecario.getNIF() != null && bibliotecario.getPassword() != null
-                    && bibliotecario.getNIF().equals(NIF1) && bibliotecario.getPassword().equals(password1)) {
-                System.out.println("\n" + "Acceso concedido. Bienvenido " + bibliotecario.getNombre() + "!\n");
-                isTrue = 0;
+        String contrasena = input.nextLine();
+        int comprobacion = 1;
+        for (int i = 0; i < listaBibliotecarios.size(); i++) {
+            if (listaBibliotecarios.get(i).getNombre().equals(usuario) && listaBibliotecarios.get(i).getPassword().equals(contrasena)) {
+                System.out.println("Acceso concedido. Bienvenido " + listaBibliotecarios.get(i).getNombre() + "!\n");
+                boolean isRunning = true;
+                while (isRunning) {
+                    System.out.println("1. Reservar libro");
+                    System.out.println("2. Devolver libro");
+                    System.out.println("3. Añadir copia de libro");
+                    System.out.println("4. Salir\n");
+                    System.out.println("Introduce una opcion: ");
+                    int opcion = input.nextInt();
+                    switch (opcion) {
+                        case 1:
+                            reservarLibro(listaUsuarios, listaLibros, listaReservas);
+                            break;
+                        case 2:
+                            devolverLibro(listaLibros, listaReservas);
+                            break;
+                        case 3:
+                            agregarLibroCopia(listaLibros);
+                            break;
+                        case 4:
+                            isRunning = false;
+                            break;
+                        default:
+                            System.out.println("Opcion no valida");
+                    }
+                }
+                comprobacion = 0;
                 break;
             }
         }
-        if (isTrue == 1) {
-            System.out.println("No es correcto");
+        if (comprobacion == 1) {
+            System.out.println("Acceso denegado. Usuario o contraseña incorrectos.");
         }
     }
+
+//    metodo para que bibliotecario pueda reservarLibro una vez inicie sesion pedirá al usuario el teléfono y el correo electrónico,
+
+    public static void reservarLibro(ArrayList<Usuario> listaUsuarios, ArrayList<Libro> listaLibros, ArrayList<Reserva> listaReservas) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Introduzca su teléfono: ");
+        int telefono1 = Integer.parseInt(input.nextLine());
+        System.out.println("Introduzca su correo electrónico: ");
+        String correo1 = input.nextLine();
+        Usuario usuarioEncontrado = null;
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getTelefono() == telefono1 && usuario.getEmail().equals(correo1)) {
+                usuarioEncontrado = usuario;
+                break;
+            }
+        }
+        if (usuarioEncontrado == null) {
+            System.out.println("No se encontró al usuario");
+            return;
+        }
+        System.out.println("Introduzca el ISBN del libro que desea reservar: ");
+        String ISBN = input.nextLine();
+
+        Libro libroEncontrado = null;
+        for (Libro libro : listaLibros) {
+            if (libro.getISBN().equals(ISBN)) {
+                libroEncontrado = libro;
+                break;
+            }
+        }
+        if (libroEncontrado == null) {
+            System.out.println("No se encontró el libro");
+            return;
+        }
+
+        if (libroEncontrado.getNumCopiasDispobibles() <= 0) {
+            System.out.println("No quedan unidades disponibles");
+            return;
+        }
+
+        Reserva reserva = new Reserva();
+        listaReservas.add(reserva);
+
+        libroEncontrado.setNumCopiasDispobibles(libroEncontrado.getNumCopiasDispobibles() - 1);
+        System.out.println("El libro " + libroEncontrado.getTitulo() + " se ha reservado correctamente");
+        System.out.println("Quedan " + libroEncontrado.getNumCopiasDispobibles() + " unidades disponibles");
+    }
+
+//    metodo devolverLibro que pide correo y telefono una vez inicie sesion el usuario
+public static void devolverLibro(ArrayList<Libro> listaLibros, ArrayList<Reserva> listaReservas) {
+    Scanner input = new Scanner(System.in);
+    System.out.println("Introduzca el ISBN del libro que desea devolver: ");
+    String ISBN = input.nextLine();
+    int comprobacion = 1;
+    for (int j = 0; j < listaLibros.size(); j++) {
+        if (listaLibros.get(j).getISBN().equals(ISBN)) {
+            System.out.println("El libro " + listaLibros.get(j).getTitulo() + " se ha devuelto correctamente");
+            listaLibros.get(j).setNumCopiasDispobibles(listaLibros.get(j).getNumCopiasDispobibles() + 1);
+            comprobacion = 0;
+            break;
+        }
+    }
+    if (comprobacion == 1) {
+        System.out.println("No se encontró el libro");
+    }
+}
+
+//   método añadirLibroCopia que permite cambiar datos de un libro y añadir una copia del mismo
+    public static void agregarLibroCopia(ArrayList<Libro> listaLibros) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("------AÑADIR LIBRO COPIA------\n");
+        System.out.println("Introduzca el ISBN del libro origen: ");
+        String ISBN1 = input.nextLine();
+        Libro libroEncontrado = null;
+        for (Libro libro : listaLibros) {
+            if (libro.getISBN().equals(ISBN1)) {
+                libroEncontrado = libro;
+                break;
+            }
+        }
+        if (libroEncontrado == null) {
+            System.out.println("No se encontró el libro");
+            return;
+        }
+        System.out.println("Introduzca el ISBN del libro destino: ");
+        String ISBN2 = input.nextLine();
+        Libro libroEncontrado2 = null;
+        for (Libro libro : listaLibros) {
+            if (libro.getISBN().equals(ISBN2)) {
+                libroEncontrado2 = libro;
+                break;
+            }
+        }
+        if (libroEncontrado2 == null) {
+            System.out.println("No se encontró el libro");
+            return;
+        }
+        System.out.println("Introduzca el dato que desea modificar: ");
+        System.out.println("1. ISBN");
+        System.out.println("2. Título");
+        System.out.println("3. Autor");
+        System.out.println("4. Editorial");
+        System.out.println("5. Salir");
+        int opcion = Integer.parseInt(input.nextLine());
+        switch (opcion) {
+            case 1:
+                System.out.println("Introduzca el nuevo ISBN: ");
+                String ISBN3 = input.nextLine();
+                libroEncontrado2.setISBN(ISBN3);
+                break;
+            case 2:
+                System.out.println("Introduzca el nuevo título: ");
+                String titulo = input.nextLine();
+                libroEncontrado2.setTitulo(titulo);
+                break;
+            case 3:
+                System.out.println("Introduzca el nuevo autor: ");
+                String autor = input.nextLine();
+                libroEncontrado2.setAutor(autor);
+                break;
+            case 4:
+                System.out.println("Introduzca la nueva editorial: ");
+                String editorial = input.nextLine();
+                libroEncontrado2.setEditorial(editorial);
+                break;
+            case 5:
+                System.out.println("Saliendo...");
+                break;
+            default:
+                System.out.println("Opción incorrecta");
+                break;
+        }
+    }
+
+
+
+
+
+
+
+// POSIBLE MENU
+
+//    public static void loginBibliotecario(ArrayList<Bibliotecario> listaBibliotecarios) {
+//    }
+
 }
