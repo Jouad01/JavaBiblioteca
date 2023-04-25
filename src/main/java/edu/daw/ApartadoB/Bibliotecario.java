@@ -2,13 +2,12 @@ package edu.daw.ApartadoB;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import edu.daw.ApartadoB.Libro;
 
 public class Bibliotecario extends Persona {
 
     private String puestoTrabajo;
     private String NIF;
-    private String password;
+    private static String password;
     //    duda
     private ArrayList <Persona> listaPersonas = new ArrayList <>();
 
@@ -125,11 +124,11 @@ public class Bibliotecario extends Persona {
 
         listaBibliotecarios.add(bibliotecario);
         listaPersonas.add(bibliotecario);
-        System.out.println("El usuario " + bibliotecario.getNombre() + " se ha registrado correctamente.");
+        System.out.println("El bibliotecario " + bibliotecario.getNombre() + " se ha registrado correctamente.");
     }
 
-    //    metodo para hacer bibliotecario haga login
-    public static void loginBibliotecario(ArrayList <Bibliotecario> listaBibliotecarios, ArrayList <Usuario> listaUsuarios, ArrayList <Libro> listaLibros, ArrayList <Reserva> listaReservas) {
+    //    metodo para hacer bibliotecario haga login. Se ha cambiado a uno statico para el menu
+    public static Object loginBibliotecario(ArrayList <Bibliotecario> listaBibliotecarios, ArrayList <Usuario> listaUsuarios, ArrayList <Libro> listaLibros, ArrayList <Reserva> listaReservas) {
         System.out.println("----INICIO DE SESION----\n");
         Scanner input = new Scanner(System.in);
         System.out.println("Introduzca su usuario: ");
@@ -172,7 +171,8 @@ public class Bibliotecario extends Persona {
         if (comprobacion == 1) {
             System.out.println("Acceso denegado. Usuario o contraseña incorrectos.");
         }
-    }
+        return null;
+}
 
 //    metodo para que bibliotecario pueda reservarLibro una vez inicie sesion pedirá al usuario el teléfono y el correo electrónico,
 
@@ -308,14 +308,18 @@ public static void devolverLibro(ArrayList<Libro> listaLibros, ArrayList<Reserva
     }
 
 
-
-
-
-
-
-// POSIBLE MENU
-
-//    public static void loginBibliotecario(ArrayList<Bibliotecario> listaBibliotecarios) {
-//    }
-
+//    metodo para que el bibliotecario pueda cambiar su contraseña
+    public void cambiarPassword() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Introduce tu contraseña actual:");
+        String oldPassword = input.nextLine();
+        if (oldPassword.equals(password)) {
+            System.out.println("Introduce la nueva contraseña:");
+            String newPassword = input.nextLine();
+            password = newPassword;
+            System.out.println("Contraseña actualizada correctamente.");
+        } else {
+            System.out.println("La contraseña actual no es correcta.");
+        }
+    }
 }
