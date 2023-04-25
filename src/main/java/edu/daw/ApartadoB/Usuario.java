@@ -96,7 +96,7 @@ public class Usuario extends Persona {
 //    este metodo utiliza el metodo de la superclase para solicitar los datos de la persona
 //    y ademas solicita los datos propios de la clase Usuario junto al metodo de la clase Reserva
     public void solicitarDatosPersona(ArrayList <Persona> listaPersonas, ArrayList <Bibliotecario> listaBibliotecarios, ArrayList <Usuario> listaUsuarios) {
-        ArrayList<Reserva> reservaArrayList = new ArrayList<>();
+        ArrayList<Reserva> listaReservas = new ArrayList<>();
         Usuario usuario = new Usuario();
         ArrayList<Persona> usuarioList = new ArrayList<>();
         System.out.println("Introduce el nombre: ");
@@ -138,7 +138,7 @@ public class Usuario extends Persona {
         Scanner email = new Scanner(System.in);
         String correo = email.nextLine();
         usuario.setEmail(correo);
-        usuario.setListaReservas(reservaArrayList);
+        usuario.setListaReservas(listaReservas);
 
 
         usuarioList.add(usuario);
