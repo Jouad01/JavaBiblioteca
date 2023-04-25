@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 public class Usuario extends Persona {
 
-    private int telefono;
+    private static int telefono;
     private String direccion;
     private int codigoPostal;
-    private String email;
+    private static String email;
     private ArrayList <Reserva> listaReservas;
 
 //    constructor vacio
@@ -35,6 +35,9 @@ public class Usuario extends Persona {
         this.codigoPostal = usuario.codigoPostal;
         this.email = usuario.email;
         this.listaReservas = usuario.listaReservas;
+    }
+
+    public Usuario(String telefono, String email) {
     }
 
 //    getters y setters
@@ -145,5 +148,27 @@ public class Usuario extends Persona {
         listaUsuarios.add(usuario);
         listaPersonas.add(usuario);
         System.out.println("El usuario " + usuario.getNombre() + " ha sido añadido correctamente. ");
+    }
+
+//    metodo para que el usuario pueda cambiar (añadir) contraseña
+    public void cambiarPassword() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Introduce tu numero de teléfono:");
+        int oldPhone = Integer.parseInt(input.nextLine());
+        System.out.println("Introduce tu correo electrónico:");
+        String oldEmail = input.nextLine();
+        if (oldPhone == telefono && oldEmail.equals(email)) {
+            System.out.println("Bien. Ahora introduce la nueva contraseña:");
+            String newPassword = input.nextLine();
+            System.out.println("Introduce de nuevo la nueva contraseña:");
+            String newPassword2 = input.nextLine();
+            if (newPassword.equals(newPassword2)) {
+                System.out.println("Contraseña cambiada correctamente.");
+            } else {
+                System.out.println("Las contraseñas no coinciden.");
+            }
+        } else {
+            System.out.println("Los datos introducidos no son correctos.");
+        }
     }
 }
