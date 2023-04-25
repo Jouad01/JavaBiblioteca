@@ -119,7 +119,7 @@ public class Libro {
                 ", autor='" + autor + '\'' +
                 ", editorial='" + editorial + '\'' +
                 ", numCopias=" + numCopias +
-                ", numCopiasDispobibles=" + numCopiasDisponibles +
+                ", numCopiasDisponibles=" + numCopiasDisponibles +
                 '}';
     }
 
