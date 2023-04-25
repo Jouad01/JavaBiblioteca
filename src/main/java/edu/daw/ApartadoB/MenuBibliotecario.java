@@ -10,7 +10,8 @@ public class MenuBibliotecario {
         ArrayList <Usuario> listaUsuarios = new ArrayList<>();
         ArrayList <Libro> listaLibros = new ArrayList<>();
         ArrayList <Reserva> listaReservas = new ArrayList<>();
-//        menu que se encarga de dar de alta más bibliotecarios y usuarios
+
+//        menu encargado de gestionar las opciones del bibliotecario, usuario y libros.
 
         Scanner input = new Scanner(System.in);
         System.out.println("------Menu Bibliotecario-------\n");
@@ -23,7 +24,8 @@ public class MenuBibliotecario {
             System.out.println("4. Añadir un libro");
             System.out.println("5. Mostrar lista de libros");
             System.out.println("6. Iniciar sesion como bibliotecario");
-            System.out.println("7. Salir\n");
+            System.out.println("7. Cambiar contraseña");
+            System.out.println("8. Salir\n");
             System.out.println("Introduce una opcion: ");
             int opcion = input.nextInt();
             switch (opcion) {
@@ -56,6 +58,25 @@ public class MenuBibliotecario {
                     Bibliotecario.loginBibliotecario(listaBibliotecarios, listaUsuarios, listaLibros, listaReservas);
                     break;
                 case 7:
+                    System.out.println("Seleccione el tipo de persona para cambiar la contraseña:");
+                    System.out.println("1. Bibliotecario");
+                    System.out.println("2. Usuario");
+                    int opcion2 = input.nextInt();
+                    switch (opcion2) {
+                        case 1:
+                            Bibliotecario bibliotecario1 = new Bibliotecario();
+                            bibliotecario1.cambiarPassword();
+                            break;
+                        case 2:
+                            Usuario usuario1 = new Usuario();
+                            usuario1.cambiarPassword();
+                            break;
+                        default:
+                            System.out.println("Opcion no valida");
+                            break;
+                    }
+                    break;
+                case 8:
                     isRunning = false;
                     break;
                 default:
