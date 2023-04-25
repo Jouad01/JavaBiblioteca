@@ -10,7 +10,7 @@ public class Usuario extends Persona {
     private String direccion;
     private int codigoPostal;
     private static String email;
-    private ArrayList <Reserva> listaReservas;
+    protected ArrayList <Reserva> listaReservas;
 
 //    constructor vacio
     public Usuario() {
@@ -170,5 +170,15 @@ public class Usuario extends Persona {
         } else {
             System.out.println("Los datos introducidos no son correctos.");
         }
+    }
+
+//    metodo que añade reserva al usuario
+    public void agregarReserva(Reserva reserva) {
+        listaReservas.add(reserva);
+    }
+
+//    metodo que elimina reserva del usuario
+    public void eliminarReserva(Reserva reserva) {
+        listaReservas.remove(reserva);
     }
 }
