@@ -322,6 +322,7 @@ public class Bibliotecario extends Persona {
             System.out.println("Introduce de nuevo la nueva contraseña: ");
             String newPassword2 = input.nextLine();
             if (newPassword.equals(newPassword2)) {
+                setPassword(newPassword);
                 System.out.println("Contraseña cambiada correctamente.");
             } else {
                 System.out.println("Las contraseñas no coinciden.");
