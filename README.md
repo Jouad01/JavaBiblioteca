@@ -17,7 +17,7 @@
 El proyecto consiste en la gestión de una biblioteca, donde se pueden realizar las siguientes acciones:
 
 * Gestionar reservas (realizar reservas y devoluciones).
-* Gestionar usuarios (bibliotecarios y usuarios, podrán ser añadidos, eliminados o modificar su contraseña).7
+* Gestionar usuarios (bibliotecarios y usuarios, podrán ser añadidos, eliminados o modificar su contraseña).
 * Gestionar libros (añadir, eliminar o modificar libros).
 
 El trabajo se ha realizado para profundizar más en los aspectos de la programación orientada a objetos, así como en el uso de las colecciones de Java.
@@ -25,7 +25,7 @@ Polimorfismo, herencia, interfaces, clases abstractas, colecciones, etc.
 
 ## Implementación
 
-Para la implementación y construcción del proyecto se ha utilizao Maven.
+Para la implementación y construcción del proyecto se ha utilizado Maven.
 El proyecto se divide en dos directorios llamados Apartado-A y Apartado-B, donde cada uno de ellos contiene el proyecto realizado en el apartado correspondiente.
 
 Para reforzar los conocimientos aprendidos en clase se ha intentado aplicar todos los conceptos vistos en el curso, como por ejemplo:
