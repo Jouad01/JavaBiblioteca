@@ -1,11 +1,13 @@
 package edu.daw.ApartadoA;
 
+
 import java.util.ArrayList;
 
 public class Biblioteca {
     private String nombre;
     private ArrayList<Libro> listaLibros;
     private ArrayList<Persona> listaBibliotecarios;
+
 
 //    private ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 

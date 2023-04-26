@@ -77,11 +77,9 @@ public class MenuBiblioteca {
                         switch (opcion) {
                             case 1:
                                 Persona.agregarBibliotecario(listaBibliotecarios);
-                                System.out.println("Bibliotecario añadido\n");
                                 break;
                             case 2:
                                 Persona.eliminarBibliotecario(listaBibliotecarios);
-                                System.out.println("Bibliotecario eliminado\n");
                                 break;
                             case 3:
                                 Persona.verBibliotecarios(listaBibliotecarios);
@@ -112,7 +110,6 @@ public class MenuBiblioteca {
                         switch (opcion) {
                             case 1:
                                 usuario.agregarUsuario(listaUsuarios);
-                                System.out.println("Usuario añadido\n");
                                 break;
                             case 2:
                                 usuario.eliminarUsuario(listaUsuarios);

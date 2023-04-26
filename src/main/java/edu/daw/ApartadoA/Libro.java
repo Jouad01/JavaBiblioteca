@@ -18,6 +18,8 @@ public class Libro {
     //    Constructor vacio
     public Libro() {
     }
+    
+    
 
     //    Constructor con parametros
     public Libro(String ISBN, String titulo, String autor, String editorial, int numCopias, int numCopiasDispobibles) {
@@ -38,6 +40,11 @@ public class Libro {
         this.numCopias = libro.numCopias;
         this.numCopiasDisponibles = libro.numCopiasDisponibles;
         contadorLibros++;
+    }
+
+    public Libro(String titulo, String autor) {
+        this.titulo = titulo;
+        this.autor = autor;
     }
 
 
@@ -116,8 +123,9 @@ public class Libro {
                 '}';
     }
 
-    //    Metodo control de copias con contado
+    //    Metodo control de copias con contador
     public static void controlCopias(ArrayList <Libro> listaLibros) {
+//        se crea un HashMap para almacenar el titulo del libro y el numero de copias
         Map<String, Integer> copiasPorTitulo = new HashMap <>();
             for (Libro libro : listaLibros) {
                 copiasPorTitulo.put(libro.getTitulo(), copiasPorTitulo.getOrDefault(libro.getTitulo(), 0) + 1);
@@ -196,8 +204,10 @@ public class Libro {
 
     public static void verLibros(ArrayList<Libro> listaLibros) {
         System.out.println("------VER LIBROS-------");
-        for (Libro listaLibro : listaLibros) {
-            System.out.println(listaLibro);
+        if (listaLibros.isEmpty()) {
+            System.out.println("No hay libros en la biblioteca");
+        } for (Libro listaLibro : listaLibros) {
+                System.out.println(listaLibro);
+            }
         }
-    }
 }

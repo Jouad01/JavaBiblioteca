@@ -56,11 +56,10 @@ public class Usuario {
         return NIF;
     }
 
-//    hazme el nif con un formato adecuado
+//    metodo para el nif con un formato adecuado
     public void setNIF(String NIF) {
-        if(!NIF.matches("[0-9]{8}[A-Z]")) {
-            System.out.println("El NIF no tiene un formato válido. Vuelve a introducirlo");
-        }
+        if (NIF.length() < 9)
+            throw new IllegalArgumentException("El NIF debe tener 9 caracteres");
         this.NIF = NIF;
     }
 
@@ -134,6 +133,7 @@ public class Usuario {
 
         usuario = new Usuario(nombre, apellidos, NIF, password, new ArrayList<>());
         listaUsuarios.add(usuario);
+        System.out.println("Usuario añadido");
     }
 
     public void eliminarUsuario(ArrayList<Usuario> listaUsuarios) {
@@ -148,6 +148,7 @@ public class Usuario {
                 listaUsuarios.remove(i);
             }
         }
+        System.out.println("Usuario eliminado");
     }
 
     public void verUsuarios(ArrayList<Usuario> listaUsuarios) {
@@ -207,19 +208,18 @@ public class Usuario {
         return false;
     }
 
-//    metodo para reservar un libro pregunta al usuario y el isbn del libro que quiere reservar
+//    metodo para reservar un libro pregunta al usuario su nif y el isbn del libro que quiere reservar
 
     public void reservarLibro(ArrayList<Usuario> listaUsuarios, ArrayList<Libro> listaLibros, ArrayList<Libro> listaReservas) {
         System.out.println("---Reservar libro---");
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Introduce el NIF del usuario");
+        System.out.println("Introduce el NIF del usuario: ");
         String NIF = input.nextLine();
 
         if (comprobarUsuario(listaUsuarios, NIF)) {
-            System.out.println("Introduce el ISBN del libro");
+            System.out.println("Introduce el ISBN del libro: ");
             String ISBN = input.nextLine();
-
             if (comprobarLibro(listaLibros, ISBN)) {
                 for (Libro libro : listaLibros) {
                     if (libro.getISBN().equals(ISBN)) {
@@ -239,7 +239,7 @@ public class Usuario {
         }
     }
 
-//    metodo para devolver un libro pregunta al usuario y el isbn del libro que quiere devolver
+//    metodo para devolver un libro pregunta al usuario su nif y el isbn del libro que quiere devolver
 
     public void devolverLibro(ArrayList<Usuario> listaUsuarios, ArrayList<Libro> listaLibros, ArrayList<Libro> listaReserva) {
         System.out.println("---Devolver libro---");

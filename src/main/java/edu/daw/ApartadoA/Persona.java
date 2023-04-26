@@ -107,6 +107,7 @@ public class Persona {
         }
         persona = new Persona(nombre, apellidos, NIF, password);
         listaBibliotecarios.add(persona);
+        System.out.println("Bibliotecario agregado");
     }
 
     public static void eliminarBibliotecario(ArrayList <Persona> listaBibliotecarios) {
@@ -125,8 +126,10 @@ public class Persona {
 
     public static void verBibliotecarios(ArrayList <Persona> listaBibliotecarios) {
         System.out.println("--- Ver bibliotecarios ---");
-        for (Persona persona : listaBibliotecarios) {
-            System.out.println(persona.toString());
+        if (listaBibliotecarios.isEmpty()) {
+            System.out.println("No hay bibliotecarios");
+        } for (Persona persona : listaBibliotecarios) {
+                System.out.println(persona.toString());
+            }
         }
-    }
 }
