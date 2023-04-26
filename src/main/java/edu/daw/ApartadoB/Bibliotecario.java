@@ -7,8 +7,7 @@ public class Bibliotecario extends Persona {
 
     private String puestoTrabajo;
     private String NIF;
-    private static String password;
-    //    duda
+    private String password;
     private ArrayList <Persona> listaPersonas = new ArrayList <>();
 
     //    constructor vacio
@@ -29,6 +28,10 @@ public class Bibliotecario extends Persona {
         this.puestoTrabajo = bibliotecario.puestoTrabajo;
         this.NIF = bibliotecario.NIF;
         this.password = bibliotecario.password;
+    }
+
+//    constructor para el menu
+    public Bibliotecario(String bibliotecarioPart, String bibliotecarioPart1) {
     }
 
     //    getters y setters
@@ -222,23 +225,23 @@ public class Bibliotecario extends Persona {
     }
 
 //    metodo devolverLibro que pide correo y telefono una vez inicie sesion el usuario
-public static void devolverLibro(ArrayList<Libro> listaLibros, ArrayList<Reserva> listaReservas) {
-    Scanner input = new Scanner(System.in);
-    System.out.println("Introduzca el ISBN del libro que desea devolver: ");
-    String ISBN = input.nextLine();
-    int comprobacion = 1;
-    for (int j = 0; j < listaLibros.size(); j++) {
-        if (listaLibros.get(j).getISBN().equals(ISBN)) {
-            System.out.println("El libro " + listaLibros.get(j).getTitulo() + " se ha devuelto correctamente");
-            listaLibros.get(j).setNumCopiasDispobibles(listaLibros.get(j).getNumCopiasDispobibles() + 1);
-            comprobacion = 0;
-            break;
+    public static void devolverLibro(ArrayList<Libro> listaLibros, ArrayList<Reserva> listaReservas) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Introduzca el ISBN del libro que desea devolver: ");
+        String ISBN = input.nextLine();
+        int comprobacion = 1;
+        for (int j = 0; j < listaLibros.size(); j++) {
+            if (listaLibros.get(j).getISBN().equals(ISBN)) {
+                System.out.println("El libro " + listaLibros.get(j).getTitulo() + " se ha devuelto correctamente");
+                listaLibros.get(j).setNumCopiasDispobibles(listaLibros.get(j).getNumCopiasDispobibles() + 1);
+                comprobacion = 0;
+                break;
+            }
+        }
+        if (comprobacion == 1) {
+            System.out.println("No se encontró el libro");
         }
     }
-    if (comprobacion == 1) {
-        System.out.println("No se encontró el libro");
-    }
-}
 
 //   método añadirLibroCopia que permite cambiar datos de un libro y añadir una copia del mismo
     public static void agregarLibroCopia(ArrayList<Libro> listaLibros) {
@@ -311,13 +314,18 @@ public static void devolverLibro(ArrayList<Libro> listaLibros, ArrayList<Reserva
 //    metodo para que el bibliotecario pueda cambiar su contraseña
     public void cambiarPassword() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduce tu contraseña actual:");
+        System.out.println("Introduce tu contraseña actual: ");
         String oldPassword = input.nextLine();
         if (oldPassword.equals(password)) {
-            System.out.println("Introduce la nueva contraseña:");
+            System.out.println("Bien. Ahora introduce la nueva contraseña: ");
             String newPassword = input.nextLine();
-            password = newPassword;
-            System.out.println("Contraseña actualizada correctamente.");
+            System.out.println("Introduce de nuevo la nueva contraseña: ");
+            String newPassword2 = input.nextLine();
+            if (newPassword.equals(newPassword2)) {
+                System.out.println("Contraseña cambiada correctamente.");
+            } else {
+                System.out.println("Las contraseñas no coinciden.");
+            }
         } else {
             System.out.println("La contraseña actual no es correcta.");
         }

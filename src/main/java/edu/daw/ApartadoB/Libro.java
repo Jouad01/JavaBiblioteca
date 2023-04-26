@@ -165,6 +165,7 @@ public class Libro {
         Libro libro = new Libro(ISBN, titulo, autor, editorial, numCopias, numCopiasDisponibles);
         listaLibros.add(libro);
         controlCopias(listaLibros);
+        System.out.println("Libro agregado correctamente");
     }
 
     public static void eliminarLibro(ArrayList<Libro> listaLibros) {
@@ -204,7 +205,9 @@ public class Libro {
 
     public static void verLibros(ArrayList<Libro> listaLibros) {
         System.out.println("------VER LIBROS-------");
-        for (Libro listaLibro : listaLibros) {
+        if (listaLibros.isEmpty()) {
+            System.out.println("No hay libros en la lista");
+        } for (Libro listaLibro : listaLibros) {
             System.out.println(listaLibro);
         }
     }
