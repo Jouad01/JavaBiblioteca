@@ -178,15 +178,16 @@ public class Usuario {
         return false;
     }
 
-    public static boolean comprobarReservas(ArrayList<Usuario> listaUsuarios, Libro libro) {
-        for (Usuario listaUsuario : listaUsuarios) {
-            if (listaUsuario.getListaReservas().contains(libro)) {
+    public static boolean comprobarReservas(ArrayList<Libro> listaReservas, Libro libro) {
+        for (Libro libroReservado : listaReservas) {
+            if (libroReservado.equals(libro)) {
                 System.out.println("El libro ya esta reservado");
                 return true;
             }
         }
         return false;
     }
+
 
     public static boolean comprobarUsuario(ArrayList<Usuario> listaUsuarios, String NIF) {
         for (Usuario listaUsuario : listaUsuarios) {
@@ -217,26 +218,47 @@ public class Usuario {
         System.out.println("Introduce el NIF del usuario: ");
         String NIF = input.nextLine();
 
-        if (comprobarUsuario(listaUsuarios, NIF)) {
-            System.out.println("Introduce el ISBN del libro: ");
-            String ISBN = input.nextLine();
-            if (comprobarLibro(listaLibros, ISBN)) {
-                for (Libro libro : listaLibros) {
-                    if (libro.getISBN().equals(ISBN)) {
-                        if (!comprobarReservas(listaUsuarios, libro)) {
-                            if (!comprobarNumReservas(listaUsuarios, listaLibros, NIF)) {
-                                for (Usuario listaUsuario : listaUsuarios) {
-                                    if (listaUsuario.getNIF().equals(NIF)) {
-                                        listaUsuario.getListaReservas().add(libro);
-                                        System.out.println("Libro reservado");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        // Comprobar si el usuario existe
+        Usuario usuario = null;
+        for (Usuario u : listaUsuarios) {
+            if (u.getNIF().equals(NIF)) {
+                usuario = u;
+                break;
             }
         }
+
+        if (usuario == null) {
+            System.out.println("El usuario no existe");
+            return;
+        }
+
+        System.out.println("Introduce el ISBN del libro: ");
+        String ISBN = input.nextLine();
+
+        // Comprobar si el libro existe
+        Libro libro = null;
+        for (Libro l : listaLibros) {
+            if (l.getISBN().equals(ISBN)) {
+                libro = l;
+                break;
+            }
+        }
+
+        if (libro == null) {
+            System.out.println("El libro no existe");
+            return;
+        }
+
+        // Comprobar si el usuario ya ha reservado este libro
+        if (usuario.getListaReservas().contains(libro)) {
+            System.out.println("El usuario ya ha reservado este libro");
+            return;
+        }
+
+        // Añadir el libro a las reservas del usuario
+        usuario.getListaReservas().add(libro);
+        listaReservas.add(libro);
+        System.out.println("Libro reservado");
     }
 
 //    metodo para devolver un libro pregunta al usuario su nif y el isbn del libro que quiere devolver
