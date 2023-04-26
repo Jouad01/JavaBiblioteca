@@ -153,14 +153,14 @@ public class Usuario extends Persona {
 //    metodo para que el usuario pueda cambiar (añadir) contraseña
     public void cambiarPassword() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduce tu numero de teléfono:");
+        System.out.println("Introduce tu numero de teléfono: ");
         int oldPhone = Integer.parseInt(input.nextLine());
-        System.out.println("Introduce tu correo electrónico:");
+        System.out.println("Introduce tu correo electrónico: ");
         String oldEmail = input.nextLine();
         if (oldPhone == telefono && oldEmail.equals(email)) {
-            System.out.println("Bien. Ahora introduce la nueva contraseña:");
+            System.out.println("Bien. Ahora introduce la nueva contraseña: ");
             String newPassword = input.nextLine();
-            System.out.println("Introduce de nuevo la nueva contraseña:");
+            System.out.println("Introduce de nuevo la nueva contraseña: ");
             String newPassword2 = input.nextLine();
             if (newPassword.equals(newPassword2)) {
                 System.out.println("Contraseña cambiada correctamente.");
